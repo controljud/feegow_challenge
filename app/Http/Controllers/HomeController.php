@@ -4,29 +4,64 @@ namespace App\Http\Controllers;
 
 use App\Services\HttpService;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\Lang;
 
 class HomeController
 {
     private $specialtiesUrl;
+    private $professionalsUrl;
+    private $howKnowUrl;
+    private $service;
 
     public function __construct()
     {
         $this->specialtiesUrl = config('feegow.endpoints.specialties');
+        $this->professionalsUrl = config('feegow.endpoints.professionals');
+        $this->howKnowUrl = config('feegow.endpoints.howknow');
+        
+        $this->service = new HttpService;
     }
 
     public function index()
     {
-        $service = new HttpService;
-        $specialties = $service->get($this->specialtiesUrl);
+        $specialties = $this->service->get($this->specialtiesUrl);
+        $howknows = $this->service->get($this->howKnowUrl);
 
         $statusCode = $specialties->status();
 
+        $jsonSpec = $specialties->json();
+        $contentSpec = $jsonSpec['content'];
+
+        $jsonHowKnow = $howknows->json();
+        $contentHowKnow = $jsonHowKnow['content'];
+        
+        return view('home')
+            ->with('howknows', $contentHowKnow)
+            ->with('specialties', $contentSpec);
+    }
+
+    public function getProfessionals(Request $request)
+    {
+        $id = $request->get('id');
+        $vars = [
+            'especialidade_id' => $id
+        ];
+
+        $professionals = $this->service->get($this->professionalsUrl, $vars);
+
+        $statusCode = $professionals->status();
+
         if ($statusCode == Response::HTTP_OK) {
-            $json = $specialties->json();
+            $json = $professionals->json();
             $content = $json['content'];
             
-            return view('home')
-                ->with('specialties', $content);
+            return response()->json(['professionals' => $content]);
         }
+    }
+
+    public function store(Request $request)
+    {
+
     }
 }

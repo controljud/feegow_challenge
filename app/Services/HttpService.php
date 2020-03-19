@@ -20,10 +20,25 @@ class HttpService
         ];
     }
 
-    public function get($endpoint)
+    public function get($endpoint, $datas = null)
     {
+        $vars = '';
+
+        $firstData = true;
+        if ($datas) {
+            foreach($datas as $key => $data) {
+                $symbol = '&';
+                if ($firstData) {
+                    $symbol = '?';
+                    $firstData = false;
+                }
+
+                $vars .= $symbol . $key . '=' . $data;
+            }
+        }
+
         $response = Http::withHeaders($this->headers)
-            ->get($this->url . $endpoint);
+            ->get($this->url . $endpoint . $vars);
 
         return $response;
     }
