@@ -7,12 +7,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HomeController
 {
-    const SPECIALTIES_URL = 'specialties/list';
+    private $specialtiesUrl;
+
+    public function __construct()
+    {
+        $this->specialtiesUrl = config('feegow.endpoints.specialties');
+    }
 
     public function index()
     {
         $service = new HttpService;
-        $specialties = $service->get(self::SPECIALTIES_URL);
+        $specialties = $service->get($this->specialtiesUrl);
 
         $statusCode = $specialties->status();
 

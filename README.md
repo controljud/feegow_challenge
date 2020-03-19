@@ -5,7 +5,7 @@
     <li>FEEGOW_API_TOKEN={token_feegow}</li>
 </ul>
 
-Comandos necessários
+<h3>Comandos necessários</h3>
 
 <ul>
     <li>composer update</li>
