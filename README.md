@@ -1,4 +1,4 @@
-<h2>Olá</h2>
+<h2>Olá Mundo!</h2>
 <p>Seja bem vindo ao meu desafio 'Feegow Challenge'. Meu nome é Isaias Lima dos Santos e esse é o resultado do meu esforço para entrar para a Feegow.</p>
 <p>O sistema foi desenvolvido em <b>Laravel 7</b>, a versão mais recente do Framework. O PHP utilizado é o <b>7.3.12</b>, rodando com Apache.</p>
 <p>Para começar a testar, faça um git clone do projeto e siga as instruções abaixo:</p>
