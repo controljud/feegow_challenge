@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Services\HttpService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use App\Http\Requests\ScheduleRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Lang;
+use App\Models\Schedule;
 
 class HomeController
 {
@@ -60,8 +63,20 @@ class HomeController
         }
     }
 
-    public function store(Request $request)
+    public function store(ScheduleRequest $request)
     {
-
+        try {
+            $schedule = new Schedule;
+            $schedule->fill($request->all());
+            
+            if ($schedule->save())
+            {
+                return redirect()->action('HomeController@index')
+                    ->with('message', Lang::get('schedule.save_successfully'));
+            }
+        } catch (\Exception $ex) {
+            return redirect()->action('HomeController@index')
+                    ->withErrors();
+        }
     }
 }

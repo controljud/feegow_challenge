@@ -17,8 +17,18 @@
 
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="js/scripts.js"></script>
+        <script src="js/bootstrap-notify.min.js"></script>
+        <script src="js/maskedinput.js"></script>
     </head>
     <body class="fixed-nav sticky-footer" id="page-top">
+    @if(Session::has('message'))
+        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+    @endif
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <p class="alert alert-warning alert-dismissible fade show">{{ $error }}</p>
+        @endforeach
+    @endif
         <div class='row'>
             <div class="col-md-3"></div>
             <div class="col-md-6">

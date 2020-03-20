@@ -1,6 +1,10 @@
 $(document).ready(function(){
+    $('#cpf').mask('999.999.999-99');
+
     $('#specialtiesList').change(function(){
+        $('.alert').hide();
         id = $(this).val();
+        $('#specialty_id').val(id);
 
         $.ajax({
             url: public_path + '/professionals',
@@ -12,9 +16,13 @@ $(document).ready(function(){
             }
         });
     });
+
+    $('#saveSchedule').click(function(){
+        $('#formSchedule').submit();
+    });
 });
 
-function createCardProfessional(professionals)
+function createCardProfessional (professionals)
 {
     $('.titleHidden').show();
     $('#dvDoctors').empty();
@@ -36,10 +44,25 @@ function createCardProfessional(professionals)
             + "     </div>"
             + " </div>"
             + " <div class='row'><div class='col-md-12 center'>"
-            + "     <a href='javascript:void(0)' class='btn btn-success btn-sm btnSchedule' id='" + professionals[i].profissional_id + "'>" + lang_agendar + "</a>"
+            + "     <button type='button' class='btn btn-success btn-sm btnSchedule' id='" + professionals[i].profissional_id + "'>" + lang_agendar + "</button>"
             + " </div></div>"
             + "</div>";
         
         $('#dvDoctors').append(card);
     }
+
+    $('.btnSchedule').click(function() {
+        id = $(this).attr('id');
+        modalSchedule(id);
+    });
+}
+
+function modalSchedule (professional_id) {
+    $('#professional_id').val(professional_id);
+    $('#name').val('');
+    $('#source_id').val("");
+    $('#birthdate').val("");
+    $('#cpf').val("");
+
+    $('#scheduleModal').modal('show');
 }

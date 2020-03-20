@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <label for="specialtiesList">@lang('home.select_specialtie')</label>
             <select id="specialtiesList" name="specialtiesList" class="form-control">
-            <option value="">@lang('home.select')</option>
+                <option value="">@lang('home.select')</option>
             @foreach($specialties as $specialty)
                 <option value="{{$specialty['especialidade_id']}}">{{$specialty['nome']}}</option>
             @endforeach
@@ -16,6 +16,8 @@
     <div class="row" id="dvDoctors">
         
     </div>
+
+    @include('modals.schedule')
 @endsection
 
 @section('scripts')
