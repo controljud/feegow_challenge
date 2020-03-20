@@ -24,4 +24,4 @@ FEEGOW_API_TOKEN=token_api_feegow # Substituir token_api_feegow pelo token de ac
 </ul>
 
 <p>Para rodar o projeto não é necessário criar o alias do endereço do mesmo no Apache</p>
-<p>Qualquer dúvida favor me contatar por email (isaikki@gmail.com) ou telefone (98066-5865)</p>
+<p>Qualquer dúvida favor me contatar por email <a href="mailto:isaikki@gmail.com">isaikki@gmail.com</a> ou telefone 98066-5865 (Whatsapp disponível)</p>
