@@ -6,6 +6,7 @@
         <meta name="description" content="Controle de campeonatos">
         <meta name="author" content="Isaias Santos">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="shortcut icon" href="{{ asset('images/feegow_logo.png') }}">
         <title>{{ config('app.name') }}</title>
         <!-- Bootstrap core-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -22,12 +23,30 @@
     </head>
     <body class="fixed-nav sticky-footer" id="page-top">
     @if(Session::has('message'))
-        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+        <div style="position: absolute; top: 0; right: 0; margin-top: 20px; margin-right: 50px;">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <span class="badge badge-success" style="width: 100%">@lang('default.success')</span>
+                </div>
+                <div class="toast-body">
+                    {{ Session::get('message') }}
+                </div>
+            </div>
+        </div>
     @endif
     @if ($errors->any())
+        <div style="position: absolute; top: 0; right: 0; margin-top: 20px; margin-right: 50px;">
         @foreach ($errors->all() as $error)
-            <p class="alert alert-warning alert-dismissible fade show">{{ $error }}</p>
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <span class="badge badge-warning" style="width: 100%">@lang('default.warning')</span>
+            </div>
+            <div class="toast-body">
+                {{$error}}
+            </div>
+        </div>
         @endforeach
+        </div>
     @endif
         <div class='row'>
             <div class="col-md-3"></div>

@@ -1,8 +1,17 @@
 $(document).ready(function(){
     $('#cpf').mask('999.999.999-99');
+    
+    $('.toast').toast({
+        delay: 15000
+    });
+    $('.toast').toast('show');
+    $('.dvLoading').hide();
 
     $('#specialtiesList').change(function(){
-        $('.alert').hide();
+        $('#dvDoctors').empty();
+        $('.dvLoading').show();
+        
+        $('.toast').toast('hide');
         id = $(this).val();
         $('#specialty_id').val(id);
 
@@ -12,6 +21,7 @@ $(document).ready(function(){
                 id: id
             },
             success: function(response){
+                $('.dvLoading').hide();
                 createCardProfessional(response.professionals);
             }
         });
@@ -25,7 +35,6 @@ $(document).ready(function(){
 function createCardProfessional (professionals)
 {
     $('.titleHidden').show();
-    $('#dvDoctors').empty();
     for (i = 0; i < professionals.length; i++) {
         tratamento = professionals[i].tratamento != null ? professionals[i].tratamento : '';
         conselho = professionals[i].conselho != null ? professionals[i].conselho : '';

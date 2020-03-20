@@ -13,6 +13,13 @@
         </div>
     </div>
     <h3 class='titleHidden'>@lang('home.select_professionals')</h3>
+    
+    <div class="text-center dvLoading">
+        <div class="spinner-border" style="width: 3rem; height: 3rem; margin-top: 40px;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
     <div class="row" id="dvDoctors">
         
     </div>

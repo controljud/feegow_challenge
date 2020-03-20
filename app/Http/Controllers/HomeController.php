@@ -75,8 +75,11 @@ class HomeController
                     ->with('message', Lang::get('schedule.save_successfully'));
             }
         } catch (\Exception $ex) {
+            $number = time();
+            Log::error('SCHEDULE ERROR (' . $number . '): ' . $ex->getMessage());
+            
             return redirect()->action('HomeController@index')
-                    ->withErrors();
+                    ->withErrors(['error' => Lang::get('home.default_error') . $number]);
         }
     }
 }
