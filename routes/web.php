@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/professionals', 'HomeController@getProfessionals')->name('professionals');
 
-Route::post('/schedule', 'HomeController@store')->name('save.schedule');
+Route::post('/schedule', 'ScheduleController@store')->name('save.schedule');

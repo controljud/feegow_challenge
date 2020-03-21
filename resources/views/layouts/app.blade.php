@@ -23,30 +23,16 @@
     </head>
     <body class="fixed-nav sticky-footer" id="page-top">
     @if(Session::has('message'))
-        <div style="position: absolute; top: 0; right: 0; margin-top: 20px; margin-right: 50px;">
-            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <span class="badge badge-success" style="width: 100%">@lang('default.success')</span>
-                </div>
-                <div class="toast-body">
-                    {{ Session::get('message') }}
-                </div>
-            </div>
-        </div>
+        <script>
+            $.notify({ message: "{{ Session::get('message') }}" }, { type: 'success' });
+        </script>
     @endif
     @if ($errors->any())
-        <div style="position: absolute; top: 0; right: 0; margin-top: 20px; margin-right: 50px;">
         @foreach ($errors->all() as $error)
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <span class="badge badge-warning" style="width: 100%">@lang('default.warning')</span>
-            </div>
-            <div class="toast-body">
-                {{$error}}
-            </div>
-        </div>
+        <script>
+            $.notify({ message: "{{ $error }}" }, { type: 'warning' });
+        </script>
         @endforeach
-        </div>
     @endif
         <div class='row'>
             <div class="col-md-3"></div>

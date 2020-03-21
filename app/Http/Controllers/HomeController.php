@@ -78,24 +78,4 @@ class HomeController
             return response()->json(['error' => 1, 'professionals' => null, 'message' => Lang::get('home.default_error') . $number]);
         }
     }
-
-    public function store(ScheduleRequest $request)
-    {
-        try {
-            $schedule = new Schedule;
-            $schedule->fill($request->all());
-            
-            if ($schedule->save())
-            {
-                return redirect()->action('HomeController@index')
-                    ->with('message', Lang::get('schedule.save_successfully'));
-            }
-        } catch (\Exception $ex) {
-            $number = time();
-            Log::error('SCHEDULE ERROR (' . $number . '): ' . $ex->getMessage());
-            
-            return redirect()->action('HomeController@index')
-                    ->withErrors(['error' => Lang::get('home.default_error') . $number]);
-        }
-    }
 }

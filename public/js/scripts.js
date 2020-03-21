@@ -1,17 +1,11 @@
 $(document).ready(function(){
     $('#cpf').mask('999.999.999-99');
-    
-    $('.toast').toast({
-        delay: 15000
-    });
-    $('.toast').toast('show');
     $('.dvLoading').hide();
 
     $('#specialtiesList').change(function(){
         $('#dvDoctors').empty();
         $('.dvLoading').show();
         
-        $('.toast').toast('hide');
         id = $(this).val();
         $('#specialty_id').val(id);
 
