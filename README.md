@@ -23,5 +23,6 @@ FEEGOW_API_TOKEN=token_api_feegow # Substituir token_api_feegow pelo token de ac
     <li>php artisan migrate</li>
 </ul>
 
-<p>Para rodar o projeto não é necessário criar o alias do endereço do mesmo no Apache</p>
+<h3>Desenvolvimento do sistema</h3>
+
 <p>Qualquer dúvida favor me contatar por email <a href="mailto:isaikki@gmail.com">isaikki@gmail.com</a> ou telefone 98066-5865 (Whatsapp disponível)</p>

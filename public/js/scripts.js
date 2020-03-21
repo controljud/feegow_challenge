@@ -22,7 +22,11 @@ $(document).ready(function(){
             },
             success: function(response){
                 $('.dvLoading').hide();
-                createCardProfessional(response.professionals);
+                if (!response.error) {
+                    createCardProfessional(response.professionals);
+                } else {
+                    $.notify({ message: response.message }, { type: 'warning' });
+                }
             }
         });
     });

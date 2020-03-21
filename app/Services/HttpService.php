@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Lang;
 
 class HttpService 
 {
@@ -36,11 +39,11 @@ class HttpService
                 $vars .= $symbol . $key . '=' . $data;
             }
         }
-
+        
         $response = Http::withHeaders($this->headers)
             ->get($this->url . $endpoint . $vars);
 
-        return $response;
+        return $this->getResponse($response);
     }
 
     public function post($endpoint, $data)
@@ -48,6 +51,16 @@ class HttpService
         $response = Http::withHeaders($this->headers)
             ->post($this->url . $endpoint, $data);
         
-        return $response;
+        return $this->getResponse($response);
+    }
+
+    public function getResponse($response)
+    {
+        if ($response->status() == Response::HTTP_OK) {
+            return $response;
+        } else {
+            Log::error('SERVICE ERROR: ' . $response->status());
+            throw new \Exception();
+        }
     }
 }

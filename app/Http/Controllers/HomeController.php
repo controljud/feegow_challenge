@@ -28,38 +28,54 @@ class HomeController
 
     public function index()
     {
-        $specialties = $this->service->get($this->specialtiesUrl);
-        $howknows = $this->service->get($this->howKnowUrl);
-
-        $statusCode = $specialties->status();
-
-        $jsonSpec = $specialties->json();
-        $contentSpec = $jsonSpec['content'];
-
-        $jsonHowKnow = $howknows->json();
-        $contentHowKnow = $jsonHowKnow['content'];
+        $contentSpec = [];
+        $contentHowKnow = [];
         
-        return view('home')
-            ->with('howknows', $contentHowKnow)
-            ->with('specialties', $contentSpec);
+        try {
+            $specialties = $this->service->get($this->specialtiesUrl);
+            $howknows = $this->service->get($this->howKnowUrl);
+
+            $statusCode = $specialties->status();
+
+            $jsonSpec = $specialties->json();
+            $contentSpec = $jsonSpec['content'];
+
+            $jsonHowKnow = $howknows->json();
+            $contentHowKnow = $jsonHowKnow['content'];
+
+            return view('home')
+                ->with('howknows', $contentHowKnow)
+                ->with('specialties', $contentSpec);
+        } catch (\Exception $ex) {
+            $number = time();
+            Log::error('SCHEDULE ERROR (' . $number . '): ' . $ex->getMessage());
+
+            return view('home')
+                ->with('howknows', $contentHowKnow)
+                ->with('specialties', $contentSpec)
+                ->withErrors(['error' => Lang::get('home.default_error') . $number]);
+        }
     }
 
     public function getProfessionals(Request $request)
     {
-        $id = $request->get('id');
-        $vars = [
-            'especialidade_id' => $id
-        ];
+        try {
+            $id = $request->get('id');
+            $vars = [
+                'especialidade_id' => $id
+            ];
 
-        $professionals = $this->service->get($this->professionalsUrl, $vars);
+            $professionals = $this->service->get($this->professionalsUrl, $vars);
 
-        $statusCode = $professionals->status();
-
-        if ($statusCode == Response::HTTP_OK) {
             $json = $professionals->json();
             $content = $json['content'];
             
-            return response()->json(['professionals' => $content]);
+            return response()->json(['error' => 0, 'professionals' => $content, 'message' => '']);
+        } catch (\Exception $ex) {
+            $number = time();
+            Log::error('AJAX ERROR (' . $number . '): ' . $ex->getMessage());
+            
+            return response()->json(['error' => 1, 'professionals' => null, 'message' => Lang::get('home.default_error') . $number]);
         }
     }
 
