@@ -10,9 +10,10 @@ class ScheduleValidatorTest extends TestCase
 {
     /**
      * 
+     * @test
      * @dataProvider customerAllowedDataProvider()
      */
-    public function testIsValid($specialty_id, $professional_id, $source_id, $birthdate, $expectedValidate)
+    public function validateSendData($specialty_id, $professional_id, $source_id, $birthdate, $expectedValidate)
     {
         $schedule = new Schedule;
         $data = [
